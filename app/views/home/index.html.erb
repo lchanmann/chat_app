@@ -1,0 +1,30 @@
+<h1>Chatrooms</h1>
+<hr />
+<div class="chatroom-list">
+  <ul>
+    <% @chatrooms.each do |chatroom| %>
+      <li>
+        <a href="<%= chatroom_path(chatroom) %>"><%= chatroom.title %></a>
+      </li>
+    <% end %>
+  </ul>
+</div>
+<h1>Private messages</h1>
+<hr />
+<% if @current_user %>
+  <div class="conversation-list">
+    <ul>
+      <% @conversations.each do |conversation| %>
+        <li>
+          <a href="<%= conversation_path(conversation) %>">
+            <%= conversation.other_party(@current_user) %>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <a href="<%= new_conversation_path %>">Talk to another user</a><br />
+  <a href="/">Logout</a>
+<% else %>
+  <a href="/">Login</a>
+<% end %>

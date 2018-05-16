@@ -8,4 +8,10 @@ class Conversation < ApplicationRecord
       where(target: user)
     )
   end
+
+  def other_party(user)
+    if user.id == originator_id || user.id == target_id
+      user.id == originator_id ? target : originator
+    end
+  end
 end

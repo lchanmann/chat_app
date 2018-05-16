@@ -21,4 +21,32 @@ RSpec.describe Conversation, type: :model do
       is_expected.to include(conversation_targeted)
     end
   end
+
+  describe '#other_party' do
+    let(:user) { FactoryBot.create(:user) }
+
+    subject { conversation.other_party(user) }
+
+    context 'when user is originator' do
+      let(:conversation) { FactoryBot.create(:conversation, originator: user) }
+
+      it "should be target user" do
+        is_expected.to eq(conversation.target)
+      end
+    end
+
+    context 'when user is target user' do
+      let(:conversation) { FactoryBot.create(:conversation, target: user) }
+
+      it "should be originator" do
+        is_expected.to eq(conversation.originator)
+      end
+    end
+
+    context 'when user is not in conversation' do
+      let(:conversation) { FactoryBot.create(:conversation) }
+
+      it { is_expected.to be_nil }
+    end
+  end
 end
