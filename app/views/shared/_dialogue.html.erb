@@ -35,7 +35,9 @@
     const $btnSend = document.getElementById('btnSend');
     $btnSend.onclick = function() {
       const $message = document.getElementById('message');
-      App.chat.send_message({ message: { content: $message.value } });
+      const dialogueType = $messageList.dataset.channel.split('-')[0];
+
+      App.chat.send_message(dialogueType, { message: { content: $message.value } });
       $message.value = '';
     }
   });

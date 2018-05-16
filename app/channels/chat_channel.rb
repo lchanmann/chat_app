@@ -6,19 +6,22 @@ class ChatChannel < ApplicationCable::Channel
   end
 
   def send_message(data)
-    message = @dialogue.messages.create(message_params.merge(data['message']))
+    message = save_message(data['message'])
     message.create_bot_response(BobBot.default) if message
   end
 
   def send_private_message(data)
-    message = @dialogue.messages.create(message_params.merge(data['message']))
+    message = save_message(data['message'])
     bot = @dialogue.other_party(current_user).to_bot
 
     message.create_bot_response(bot) if message && bot
   end
 
   private
-    def message_params
-      { sent_by: username, user: current_user }
+    def save_message(params)
+      @dialogue.messages.create({
+        sent_by: username,
+        user: current_user
+      }.merge(params))
     end
 end

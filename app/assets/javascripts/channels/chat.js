@@ -6,12 +6,9 @@ App.subscribe = function(room, onReceived) {
       onReceived(data);
     },
 
-    send_message: function(data) {
-      return this.perform('send_message', { message: data['message'] });
-    },
-
-    send_private_message: function(data) {
-      return this.perform('send_private_message', { message: data['message'] });
+    send_message: function(dialogueType, data) {
+      const action = (dialogueType == 'Chatroom' ? 'send_message' : 'send_private_message');
+      return this.perform(action, { message: data['message'] });
     }
   });
 }
