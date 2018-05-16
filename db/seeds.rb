@@ -5,3 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Chatroom.create(title: 'Public Lobby', members_count: 0)
+
+User.create(name: 'BobBot', is_bot: true)
+User.create(name: 'Ed', is_bot: false)
+User.create(name: 'John', is_bot: false)
+User.create(name: 'Nico', is_bot: false)
