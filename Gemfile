@@ -29,6 +29,7 @@ end
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'rails-controller-testing'
+  gem 'action-cable-testing'
   gem 'capybara'
 end
 
