@@ -36,6 +36,19 @@ RSpec.describe ChatroomsController, type: :controller do
       get :show, params: { id: chatroom.id }
       expect(response).to render_template(:show)
     end
+
+    it "assigns username when not exists" do
+      expect {
+        get :show, params: { id: chatroom.id }
+      }.to change { cookies.encrypted['username'] }
+    end
+
+    it "should not change username when already exists" do
+      cookies.encrypted['username'] = 'test'
+      expect {
+        get :show, params: { id: chatroom.id }
+      }.not_to change { cookies.encrypted['username'] }
+    end
   end
 
 end

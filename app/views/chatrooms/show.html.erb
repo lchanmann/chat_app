@@ -13,7 +13,29 @@
 <hr />
 <div class="message-composer">
   Messages: <br />
-  <input type="hidden" value="<%= @chatroom.id %>">
-  <textarea rows="3"></textarea> <br />
-  <button>Send</button>
+  <textarea id="message" rows="3"></textarea> <br />
+  <button id="btnSend">Send</button>
 </div>
+
+<script>
+  document.addEventListener('turbolinks:load', () => {
+    const $messageList = document.getElementsByClassName('message-list')[0];
+    const $ul = $messageList.getElementsByTagName('ul')[0];
+
+    // subscribe to chatroom
+    App.subscribe(<%= @chatroom.id %>, function(data) {
+      const { sent_by, content } = data;
+      const $li = document.createElement('li');
+
+      $li.innerText = `${sent_by}: ${content}`;
+      $ul.append($li);
+    });
+
+    // bind and handle btnSend.click event
+    const $btnSend = document.getElementById('btnSend');
+    $btnSend.onclick = function() {
+      const $message = document.getElementById('message');
+      App.chat.send_message({ message: { content: $message.value } });
+    }
+  });
+</script>
