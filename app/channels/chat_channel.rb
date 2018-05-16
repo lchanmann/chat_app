@@ -1,3 +1,5 @@
+require 'bob_bot'
+
 class ChatChannel < ApplicationCable::Channel
   def subscribed
     @chatroom = Chatroom.find(params[:room_id])
@@ -6,6 +8,8 @@ class ChatChannel < ApplicationCable::Channel
 
   def send_message(data)
     message_params = { sent_by: username }.merge(data['message'])
-    @chatroom.messages.create(message_params)
+    if message = @chatroom.messages.create(message_params)
+      message.create_bot_response(BobBot.default)
+    end
   end
 end

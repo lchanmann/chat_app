@@ -18,23 +18,22 @@ RSpec.describe ChatChannel, type: :channel do
 
   describe '#send_message' do
     let(:content) { 'content' }
+    let(:user_message) { chatroom.messages.find_by(sent_by: username) }
+    let(:bob_bot_message) { chatroom.messages.find_by(sent_by: BobBot.name) }
 
-    it "should create new message" do
-      expect {
-        perform :send_message, message: { content: content }
-      }.to change(Message, :count).by(1)
+    it "should create user message" do
+      perform :send_message, message: { content: content }
+
+      expect(user_message).not_to be_nil
+      expect(user_message.content).to eq(content)
+      expect(user_message.chatroom).to eq(chatroom)
     end
 
-    describe 'created message' do
-      subject { Message.last }
+    it "should create bob_bot response" do
+      perform :send_message, message: { content: content }
 
-      before do
-        perform :send_message, message: { content: content }
-      end
-
-      it { is_expected.to have_attributes(sent_by: username) }
-      it { is_expected.to have_attributes(content: content) }
-      it { is_expected.to have_attributes(chatroom: chatroom) }
+      expect(bob_bot_message).not_to be_nil
+      expect(user_message.chatroom).to eq(chatroom)
     end
   end
 end
