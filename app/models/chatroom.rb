@@ -6,8 +6,4 @@ class Chatroom < ApplicationRecord
     increment!(:peeps_count)
     "User#{peeps_count}"
   end
-
-  def to_s
-    "Chatroom-#{id}"
-  end
 end

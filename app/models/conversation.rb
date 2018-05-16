@@ -16,8 +16,4 @@ class Conversation < ApplicationRecord
       user.id == originator_id ? target : originator
     end
   end
-
-  def to_s
-    "Conversation-#{id}"
-  end
 end

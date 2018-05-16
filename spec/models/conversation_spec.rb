@@ -52,8 +52,4 @@ RSpec.describe Conversation, type: :model do
       it { is_expected.to be_nil }
     end
   end
-
-  describe '#to_s' do
-    it { expect(subject.to_s).to eq("Conversation-#{subject.id}") }
-  end
 end

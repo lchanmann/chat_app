@@ -1,7 +1,13 @@
 class ChatChannel < ApplicationCable::Channel
+  # dialogue types supported by the channel
+  DIALOGUE_TYPES = {
+    'chatrooms' => Chatroom,
+    'conversations' => Conversation
+  }
+
   def subscribed
-    klass, id = params[:room].split('-')
-    @dialogue = klass.constantize.find(id)
+    _, type, id = params[:room].split('/')
+    @dialogue = DIALOGUE_TYPES[type].find(id)
     stream_for @dialogue
   end
 

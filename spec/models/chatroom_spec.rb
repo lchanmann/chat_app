@@ -21,8 +21,4 @@ RSpec.describe Chatroom, type: :model do
       expect(chatroom.join!).to eq('User3')
     end
   end
-
-  describe '#to_s' do
-    it { expect(subject.to_s).to eq("Chatroom-#{subject.id}") }
-  end
 end

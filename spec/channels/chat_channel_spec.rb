@@ -7,12 +7,17 @@ RSpec.describe ChatChannel, type: :channel do
 
   before { stub_connection username: username, current_user: user }
 
+  # get path for dialogue object, assume standard resources route
+  def path_for(dialogue)
+    ['', dialogue.model_name.route_key, dialogue.id].join('/')
+  end
+
   describe '#subscribed' do
     %w(chatroom conversation).each do |type|
       context "to #{type}" do
         let(:dialogue) { FactoryBot.create(type) }
 
-        before { subscribe room: "#{type.capitalize}-#{dialogue.id}" }
+        before { subscribe room: path_for(dialogue) }
 
         it "should stream from #{type}" do
           expect(streams).to include(
@@ -29,7 +34,7 @@ RSpec.describe ChatChannel, type: :channel do
     let(:user_message) { chatroom.messages.find_by(sent_by: username) }
     let(:bob_bot_message) { chatroom.messages.find_by(sent_by: BobBot.name) }
 
-    before { subscribe room: "Chatroom-#{chatroom.id}" }
+    before { subscribe room: path_for(chatroom) }
 
     it "should store user message" do
       perform :send_message, message: { content: content }
@@ -53,7 +58,7 @@ RSpec.describe ChatChannel, type: :channel do
     let(:user_message) { conversation.messages.find_by(sent_by: username) }
     let(:bob_bot_message) { conversation.messages.find_by(sent_by: BobBot.name) }
 
-    before { subscribe room: "Conversation-#{conversation.id}" }
+    before { subscribe room: path_for(conversation) }
 
     it "should store user message" do
       perform :send_private_message, message: { content: content }
