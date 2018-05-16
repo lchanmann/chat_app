@@ -7,4 +7,10 @@ module ConversationUtils
     ).first
     conversation || Conversation.create(originator: user, target: other)
   end
+
+  def conversations_for(user)
+    Conversation.where(originator: user).or(
+      Conversation.where(target: user)
+    )
+  end
 end

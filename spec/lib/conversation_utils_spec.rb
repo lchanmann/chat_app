@@ -34,4 +34,25 @@ RSpec.describe ConversationUtils do
     end
   end
 
+  describe '.conversations_for' do
+    let(:user) { FactoryBot.create(:user) }
+    let!(:conversation) { FactoryBot.create(:conversation, originator: user) }
+    let!(:conversation2) { FactoryBot.create(:conversation, target: user) }
+    let!(:conversation3) { FactoryBot.create(:conversation) }
+
+    subject { described_class.conversations_for(user) }
+
+    it "includes conversation originated by user" do
+      is_expected.to include(conversation)
+    end
+
+    it "includes conversation targetd to user" do
+      is_expected.to include(conversation2)
+    end
+
+    it "does not include other conversation" do
+      is_expected.not_to include(conversation3)
+    end
+  end
+
 end
