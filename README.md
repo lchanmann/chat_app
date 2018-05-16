@@ -21,13 +21,13 @@ A public chatroom does not require user to login to use. When joining a numbered
 
 Bob bot is listening to public chatroom and will respond to any message sent to the chatroom.
 
-![Public Lobby](https://github.com/lchanmann/chat_app/raw/master/doc/resources/public_lobby.git)
+![Public Lobby](https://github.com/lchanmann/chat_app/raw/master/doc/resources/public_lobby.gif)
 
 ## Private conversation (user <-> user)
 
 A private conversation requires login and allows for user to user messaging. A user can also send private message to Bot bot.
 
-![Public Lobby](https://github.com/lchanmann/chat_app/raw/master/doc/resources/private_message.git)
+![Public Lobby](https://github.com/lchanmann/chat_app/raw/master/doc/resources/private_message.gif)
 
 ## Running the app
 
