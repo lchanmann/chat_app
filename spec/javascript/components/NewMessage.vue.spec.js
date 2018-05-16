@@ -1,33 +1,42 @@
 import { shallowMount } from '@vue/test-utils'
 import NewMessage from '../../../app/javascript/components/NewMessage'
 
-var wrapper;
-const content = 'hello';
-
 describe('NewMessage.vue', () => {
-  beforeEach(() => {
-    wrapper = shallowMount(NewMessage);
-  });
-
   it('renders message input', () => {
+    const wrapper = shallowMount(NewMessage);
     expect(wrapper.find('textarea').exists()).toBe(true);
   });
 
   it('renders send button', () => {
+    const wrapper = shallowMount(NewMessage);
     expect(wrapper.find('button').exists()).toBe(true);
   });
 
   describe('button click', () => {
-    it('emits send event with message content', () => {
-      wrapper.setData({ content });
+    let wrapper;
+    const spy = jasmine.createSpyObj('chat', ['sendMessage']);
+    const dialogueType = 'test';
+    const content = 'hello';
 
+    beforeEach(() => {
+      wrapper = shallowMount(NewMessage, {
+        propsData: {
+          dialogueType,
+          app: { chat: spy }
+        }
+      });
+      wrapper.setData({ content });
+    });
+
+    it('sends message to chat service', () => {
       wrapper.find('button').trigger('click');
-      expect(wrapper.emitted('send')[0]).toEqual([content]);
+      expect(spy.sendMessage).toHaveBeenCalledWith(
+        dialogueType,
+        { message: { content } }
+      );
     });
 
     it('clear message content', () => {
-      wrapper.setData({ content });
-
       wrapper.find('button').trigger('click');
       expect(wrapper.vm.content).toEqual('');
     });

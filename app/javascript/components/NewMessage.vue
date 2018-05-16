@@ -7,7 +7,18 @@
 </template>
 
 <script>
+import App from '../cable'
+
 export default {
+  props: {
+    dialogueType: String,
+    app: {
+      type: Object,
+      default() {
+        return App
+      }
+    }
+  },
   data() {
     return {
       content: ''
@@ -15,7 +26,11 @@ export default {
   },
   methods: {
     sendMessage() {
-      this.$emit('send', this.content);
+      this.app.chat.sendMessage(this.dialogueType, {
+        message: {
+          content: this.content
+        }
+      });
       this.content = '';
     }
   }
