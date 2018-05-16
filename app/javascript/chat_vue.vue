@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <MessageList />
+    <MessageList :resource-url="resourceUrl" />
     <hr />
-    <NewMessage @send="sendMessage" />
+    <NewMessage :dialogue-type="dialogueType"/>
   </div>
 </template>
 
@@ -14,18 +14,18 @@ export default {
   components: {
     MessageList, NewMessage
   },
-  props: {
-    dialogueType: {
-      type: String,
-      default: location.pathname.split('/')[1]
+  data() {
+    return {
+      baseUrl: location.pathname
     }
   },
-  methods: {
-    sendMessage(content) {
-      App.chat.sendMessage(this.dialogueType, {
-        message: { content }
-      });
+  computed: {
+    resourceUrl() {
+      return `${this.baseUrl}/messages`;
     },
+    dialogueType() {
+      return this.baseUrl.split('/')[1];
+    }
   }
 }
 </script>
