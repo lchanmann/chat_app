@@ -6,7 +6,7 @@ RSpec.describe User, type: :model do
 
   describe 'human scope' do
     let!(:user) { FactoryBot.create(:user) }
-    let!(:bot) { FactoryBot.create(:user, is_bot: true) }
+    let!(:bot) { FactoryBot.create(:user, :bot) }
 
     subject { described_class.human }
 

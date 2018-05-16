@@ -24,7 +24,7 @@
     </ul>
   </div>
   <a href="<%= new_conversation_path %>">Talk to another user</a><br />
-  <a href="/">Logout</a>
+  <a href="<%= logout_url %>">Logout (<%= @current_user.name %>)</a>
 <% else %>
-  <a href="/">Login</a>
+  <a href="<%= login_url %>">Login</a>
 <% end %>

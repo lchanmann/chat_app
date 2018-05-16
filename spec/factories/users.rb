@@ -3,4 +3,8 @@ FactoryBot.define do
     name 'A user'
     is_bot false
   end
+
+  trait :bot do
+    is_bot true
+  end
 end
