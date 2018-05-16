@@ -14,11 +14,21 @@
 </template>
 
 <script>
-import MessageItem from './MessageItem.vue'
+import MessageItem from './MessageItem'
+import App from '../cable'
 
 export default {
   components: {
     MessageItem
+  },
+  props: {
+    resourceUrl: String,
+    app: {
+      type: Object,
+      default() {
+        return App
+      }
+    }
   },
   data() {
     return {
@@ -31,14 +41,13 @@ export default {
   },
   methods: {
     getAllMessages() {
-      var self = this;
       // include cookies in fetch request
-      fetch(`${location.pathname}/messages`, { credentials: 'include' })
+      fetch(this.resourceUrl, { credentials: 'include' })
         .then((response) => response.json())
-        .then((data) => { self.messages = data });
+        .then((data) => { this.messages = data });
     },
     subscribeToChannel() {
-      App.subscribe(location.pathname, (data) => {
+      this.app.subscribe(this.resourceUrl, (data) => {
         this.messages.push(data)
       });
     }
