@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_length_of(:name).is_at_least(2) }
+  it { is_expected.to validate_uniqueness_of(:name) }
 
   describe 'human scope' do
     let!(:user) { FactoryBot.create(:user) }

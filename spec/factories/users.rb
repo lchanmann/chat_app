@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :user do
-    name 'A user'
+    sequence(:name) { |n| "User#{n}" }
     is_bot false
   end
 
