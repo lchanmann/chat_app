@@ -1,0 +1,11 @@
+<h1>Chatrooms</h1>
+<hr />
+<div class="chatroom-list">
+  <ul>
+    <% @chatrooms.each do |chatroom| %>
+      <li>
+        <a href="<%= chatroom_path(chatroom) %>"><%= chatroom.title %></a>
+      </li>
+    <% end %>
+  </ul>
+</div>
