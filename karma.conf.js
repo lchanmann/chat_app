@@ -20,7 +20,7 @@ module.exports = function(config) {
       "spec/javascript/*.spec.js": ["webpack", "sourcemap"],
       "spec/javascript/**/*.spec.js": ["webpack", "sourcemap"]
     },
-    reporters: ["progress"],
+    reporters: ["spec"],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
