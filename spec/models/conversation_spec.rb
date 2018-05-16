@@ -1,9 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Conversation, type: :model do
+  subject { FactoryBot.create(:conversation) }
+
   it { is_expected.to belong_to(:originator).class_name('User') }
   it { is_expected.to belong_to(:target).class_name('User') }
   it { is_expected.to have_many(:messages) }
+  it { is_expected.to validate_uniqueness_of(:target_id).scoped_to(:originator_id) }
 
   describe 'of scope' do
     let(:user) { FactoryBot.create(:user) }

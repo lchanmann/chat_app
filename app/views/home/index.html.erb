@@ -17,7 +17,7 @@
       <% @conversations.each do |conversation| %>
         <li>
           <a href="<%= conversation_path(conversation) %>">
-            <%= conversation.other_party(@current_user) %>
+            <%= conversation.other_party(@current_user).name %>
           </a>
         </li>
       <% end %>
