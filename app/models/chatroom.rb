@@ -1,5 +1,5 @@
 class Chatroom < ApplicationRecord
-  has_many :messages
+  has_many :messages, as: :dialogue
   validates :title, presence: true
 
   def join!

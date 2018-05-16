@@ -26,14 +26,14 @@ RSpec.describe ChatChannel, type: :channel do
 
       expect(user_message).not_to be_nil
       expect(user_message.content).to eq(content)
-      expect(user_message.chatroom).to eq(chatroom)
+      expect(user_message.dialogue).to eq(chatroom)
     end
 
     it "should create bob_bot response" do
       perform :send_message, message: { content: content }
 
       expect(bob_bot_message).not_to be_nil
-      expect(user_message.chatroom).to eq(chatroom)
+      expect(user_message.dialogue).to eq(chatroom)
     end
   end
 end

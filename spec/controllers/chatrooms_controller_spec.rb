@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ChatroomsController, type: :controller do
   let!(:chatroom) { FactoryBot.create(:chatroom) }
-  let!(:message) { FactoryBot.create(:message, chatroom: chatroom) }
+  let!(:message) { FactoryBot.create(:message, dialogue: chatroom) }
 
   describe "GET #index" do
     it "returns http success" do

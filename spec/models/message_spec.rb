@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe Message, type: :model do
   let(:chatroom) { FactoryBot.create(:chatroom) }
 
-  it { is_expected.to belong_to(:chatroom) }
+  it { is_expected.to belong_to(:dialogue) }
 
   describe '#create_bot_response' do
-    let!(:message) { FactoryBot.create(:message, chatroom: chatroom) }
+    let!(:message) { FactoryBot.create(:message, dialogue: chatroom) }
 
     let(:bot) { BobBot.default }
 
@@ -24,7 +24,7 @@ RSpec.describe Message, type: :model do
   end
 
   describe '#broadcast_message' do
-    let(:message) { FactoryBot.build(:message, chatroom: chatroom) }
+    let(:message) { FactoryBot.build(:message, dialogue: chatroom) }
 
     it "should broadcast message to chatroom" do
       expect(ChatChannel).to receive(:broadcast_to).with(chatroom, message)
